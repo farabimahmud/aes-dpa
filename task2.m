@@ -27,8 +27,9 @@ for pos = 1:2
         avg_bins_1 = mean(bins_1);
         peaks = [peaks; max(abs(avg_bins_0 - avg_bins_1))];
     end
-    [max_peak, bytes_recovered(pos)] = max(peaks);
-    res = sprintf('%d %h',pos, bytes_recovered(pos));
+    [max_peak, guess] = max(peaks);
+    
+    res = sprintf('%d %d',pos, guess-1);
     disp(res)
 end
 
