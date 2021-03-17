@@ -6,10 +6,9 @@ bytes_recovered = zeros (1,16);
 n_traces = 200; 
 
 traces = traces (1:n_traces, :); 
-
 %% Launch DPA and compute DoM , size of DoM 256 x 40000
 peaks = [];
-for pos = 1:2   
+for pos = 16:16  
     peaks = [];
     for k=0:255
         bins_0 = [];
@@ -28,8 +27,8 @@ for pos = 1:2
         peaks = [peaks; max(abs(avg_bins_0 - avg_bins_1))];
     end
     [max_peak, guess] = max(peaks);
-    
-    res = sprintf('%d %d',pos, guess-1);
+    guessed_key = guess - 1; 
+    res = compose('pos %d guess 0x%X',pos, guessed_key);
     disp(res)
 end
 
