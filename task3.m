@@ -5,9 +5,10 @@
 load 'aes_power_data.mat';  
 bytes_original = [0x00 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88 0x99 0xAA 0xBB 0xCC 0xDD 0xEE 0xFF];
 
+
 bytes_recovered = zeros (1,16);
 n_traces = 200; 
-n_trace_options = [100];
+n_trace_options = [200];
 %% launch DPA
 for nt = 1:length(n_trace_options)
     n_traces = n_trace_options(nt);
@@ -42,6 +43,8 @@ for nt = 1:length(n_trace_options)
     res = sprintf('n_traces %d accuracy %f', n_trace_options(nt), getAccuracy(bytes_original, bytes_recovered));
     disp(res);
 end
+
+
 % %%
 % % dec2hex(bytes_recovered) 
 % %% Sampe code to  plots 
@@ -60,9 +63,13 @@ end
 function acc = getAccuracy(original, guess)
     correct = 0;    
     for i =1:length(original)
-        if original(i) == guess(i)
-            correct = correct +1 ;
-        end        
+        org_byte = dec2bin(original(i),8);
+        guess_byte = dec2bin(guess(i),8);
+        for j = 1:8
+            if org_byte(j) == guess_byte(j)
+                correct = correct +1;
+            end           
+        end
     end
-    acc = correct / length(original);
+    acc =100.0 * correct / length(original) / 8;
 end 
