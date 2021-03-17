@@ -30,7 +30,7 @@ end
 %%
 % dec2hex(bytes_recovered) 
 %% Sampe code to  plots 
-OFFSSET= 64 ; % for N=64, 0 , 64. 128, 192
+OFFSSET= 192 ; % for N=64, 0 , 64. 128, 192
 N=8; % for an NxN plot
 for i = 1:N
     for j  =1:N
